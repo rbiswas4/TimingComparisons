@@ -2,6 +2,7 @@ import timeit
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numba
 sns.set()
 
 
@@ -17,6 +18,7 @@ print t.repeat(3, 2)
 
 print "DONE"
 
+@numba.jit(nopython=False)
 def sumvars(x):
     res = 0.
     for e in x:
@@ -41,5 +43,5 @@ res = np.asarray(res)
 yres = np.asarray(yres)
 plt.errorbar(res[:, 0], res[:, 1:].mean(axis=1) , yerr=res[:, 1:].std(axis=1), fmt='o')
 plt.errorbar(yres[:, 0], yres[:, 1:].mean(axis=1) , yerr=yres[:, 1:].std(axis=1), fmt='s')
-plt.savefig('fig.png')
+plt.savefig('fig2.png')
 plt.show()
